@@ -42,25 +42,42 @@ const Contact = () => {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${portfolioConfig.contact.email}`, {
+      const useWeb3Forms = !!portfolioConfig.contact.web3formsAccessKey;
+      const url = useWeb3Forms 
+        ? "https://api.web3forms.com/submit" 
+        : `https://formsubmit.co/ajax/${portfolioConfig.contact.email}`;
+        
+      const payload = useWeb3Forms 
+        ? {
+            access_key: portfolioConfig.contact.web3formsAccessKey,
+            name,
+            email,
+            subject,
+            message
+          }
+        : {
+            name,
+            email,
+            subject,
+            message
+          };
+
+      const response = await fetch(url, {
         method: "POST",
         headers: { 
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
-        body: JSON.stringify({
-            name,
-            email,
-            subject,
-            message
-        })
+        body: JSON.stringify(payload)
       });
       
-      if (response.ok) {
+      const data = await response.json();
+      
+      if (response.ok && (!useWeb3Forms || data.success)) {
         alert(`Thank you, ${name}! Your message has been sent successfully.`);
         e.target.reset();
       } else {
-        alert("Oops! Something went wrong while sending your message. Please try again later.");
+        alert((data && data.message) || "Oops! Something went wrong while sending your message. Please try again later.");
       }
     } catch {
       alert("Oops! Something went wrong. Please check your network connection and try again.");
