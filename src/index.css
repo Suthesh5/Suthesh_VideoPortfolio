@@ -68,3 +68,16 @@ body {
   90% { transform: translateY(-15px); opacity: 1; }
   100% { transform: translateY(0); opacity: 1; }
 }
+
+/* Fix autofill yellow/light-blue background in Chrome and Edge */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0px 1000px #0a0a0a inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
