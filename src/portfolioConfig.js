@@ -79,6 +79,6 @@ export const portfolioConfig = {
     phone: "+91 97917 44856",
     location: "Erode, Tamil Nadu, India",
     linkedin: "linkedin.com/in/suthesh-s",
-    web3formsAccessKey: "" // Optional: Get a free key from https://web3forms.com to hide your email address in the source code
+    web3formsAccessKey: "115bb965-c8e2-461f-baa2-1645fa30f6a7" // Optional: Get a free key from https://web3forms.com to hide your email address in the source code
   }
 };
